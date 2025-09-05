@@ -1,0 +1,68 @@
+/* 1. Reset CSS moderno */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 2. Tipografía global */
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #f9f9f9;
+  color: #222;
+  line-height: 1.5;
+}
+
+/* 3. Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 4. Listas */
+ul, ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 5. Imágenes y multimedia */
+img, picture, video, canvas, svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* 6. Botones e inputs */
+button, input, textarea, select {
+  font: inherit;
+}
+
+/* 7. Dark Mode Support */
+:root {
+  --transition-colors: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+/* Transiciones suaves para modo oscuro */
+* {
+  transition: var(--transition-colors);
+}
+
+/* 8. Scrollbar adaptativo */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: light-dark(#eee, #333);
+}
+
+::-webkit-scrollbar-thumb {
+  background: light-dark(#bbb, #666);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: light-dark(#999, #888);
+}
