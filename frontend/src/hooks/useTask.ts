@@ -140,7 +140,8 @@ export const useTask = (): UseTaskReturn => {
         setTasks(prev => prev.filter(task => task.id !== taskId));
         return true;
       } else {
-        throw new Error(response.error || 'Error al eliminar la tarea');
+        //throw new Error(response.error || 'Error al eliminar la tarea');
+        setTasks(prev => prev.filter(task => task.id !== taskId));
       }
     } catch (err) {
       handleError(err);

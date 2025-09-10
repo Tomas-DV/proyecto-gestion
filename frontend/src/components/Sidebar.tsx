@@ -24,13 +24,19 @@ const Sidebar = ({ onSectionChange, currentSection }: SidebarProps) => {
   const { isAdmin } = useUserRole();
   
   // Colores adaptativos para modo claro/oscuro
-  const bgColor = useColorModeValue('gray.50', 'gray.900');
-  const borderColor = useColorModeValue('gray.200', 'gray.700');
-  const activeColor = useColorModeValue('blue.500', 'blue.300');
-  const activeBg = useColorModeValue('blue.50', 'blue.900');
-  const textColor = useColorModeValue('gray.700', 'gray.200');
-  const hoverBg = useColorModeValue('blue.50', 'blue.900');
-  const hoverColor = useColorModeValue('blue.500', 'blue.300');
+
+const bgColor = useColorModeValue("gray.50", "gray.900");
+const borderColor = useColorModeValue("gray.200", "gray.700");
+
+// Text colors
+const textColor = useColorModeValue("gray.700", "gray.100"); // inactive items
+const activeColor = useColorModeValue("blue.600", "blue.200"); // active item
+const hoverColor = useColorModeValue("blue.600", "blue.200"); // hover
+
+// Background colors
+const activeBg = useColorModeValue("blue.50", "blue.800"); // active item bg
+const hoverBg = useColorModeValue("blue.50", "blue.800"); // hover bg
+
 
   const baseMenuItems = [
     { id: 'dashboard', label: 'Tablero', icon: FiHome },
@@ -63,7 +69,7 @@ const Sidebar = ({ onSectionChange, currentSection }: SidebarProps) => {
         mb={6}
         color={activeColor}
       >
-        pgsql
+        Planifica
       </Text>
 
       <VStack spacing={4} align="stretch">
@@ -88,7 +94,7 @@ const Sidebar = ({ onSectionChange, currentSection }: SidebarProps) => {
             >
               <HStack spacing={3} w="100%">
                 <Icon size={18} />
-                <Text fontSize="sm" textAlign="left" flex={1}>
+                <Text fontSize="sm" color={isActive ? activeColor : textColor} textAlign="left" flex={1}>
                   {item.label}
                 </Text>
               </HStack>

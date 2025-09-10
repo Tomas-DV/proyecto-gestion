@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Box,
@@ -13,20 +13,26 @@ import {
   Alert,
   AlertIcon,
   useDisclosure,
-  useColorModeValue,
-} from '@chakra-ui/react';
-import { FiPlus, FiEdit, FiTrash2, FiDownload, FiSearch, FiFilter } from 'react-icons/fi';
-import { useState, useEffect } from 'react';
-import LoginForm from '@/components/auth/LoginForm';
-import RegisterForm from '@/components/auth/RegisterForm';
-import ProtectedRoute from '@/components/auth/ProtectedRoute';
-import DashboardContent from '@/components/dashboard/DashboardContent';
-import ApiTestComponent from '@/components/api/ApiTestComponent';
-import TaskCard from '@/components/tasks/TaskCard';
-import TaskModal from '@/components/tasks/TaskModal';
-import ApiDebug from '@/components/debug/ApiDebug';
-import { useTask } from '@/hooks/useTask';
-import { Task, TaskStatus, TaskPriority, TaskRequest, TaskUpdateRequest } from '@/types/task';
+} from "@chakra-ui/react";
+import { useColorModeValue } from "@/components/ui/color-mode";
+import { FiPlus, FiSearch } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import LoginForm from "@/components/auth/LoginForm";
+import RegisterForm from "@/components/auth/RegisterForm";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import DashboardContent from "@/components/dashboard/DashboardContent";
+import ApiTestComponent from "@/components/api/ApiTestComponent";
+import TaskCard from "@/components/tasks/TaskCard";
+import TaskModal from "@/components/tasks/TaskModal";
+import ApiDebug from "@/components/debug/ApiDebug";
+import { useTask } from "@/hooks/useTask";
+import {
+  Task,
+  TaskStatus,
+  TaskPriority,
+  TaskRequest,
+  TaskUpdateRequest,
+} from "@/types/task";
 
 interface SectionContentProps {
   section: string;
@@ -34,11 +40,11 @@ interface SectionContentProps {
 }
 
 const TaskManagement = () => {
-  // Colores adaptativos
-  const titleColor = useColorModeValue('gray.800', 'white');
-  const cardBg = useColorModeValue('white', 'gray.800');
-  const noTasksTextColor = useColorModeValue('gray.500', 'gray.400');
-  
+  // Adaptive colors
+  const titleColor = useColorModeValue("gray.800", "white");
+  const cardBg = useColorModeValue("white", "gray.800");
+  const noTasksTextColor = useColorModeValue("gray.500", "gray.400");
+
   const {
     tasks,
     loading,
@@ -50,26 +56,30 @@ const TaskManagement = () => {
     loadTasks,
   } = useTask();
 
-  // Cargar tareas solo cuando se monta el componente TaskManagement
   useEffect(() => {
     loadTasks();
   }, [loadTasks]);
 
-  const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
+  const {
+    isOpen: isModalOpen,
+    onOpen: onModalOpen,
+    onClose: onModalClose,
+  } = useDisclosure();
   const [editingTask, setEditingTask] = useState<Task | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<TaskStatus | ''>('');
-  const [priorityFilter, setPriorityFilter] = useState<TaskPriority | ''>('');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState<TaskStatus | "">("");
+  const [priorityFilter, setPriorityFilter] = useState<TaskPriority | "">("");
 
-  // Filtrar tareas según los criterios
-  const filteredTasks = tasks.filter(task => {
-    const matchesSearch = !searchTerm || 
+  const filteredTasks = tasks.filter((task) => {
+    const matchesSearch =
+      !searchTerm ||
       task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (task.description && task.description.toLowerCase().includes(searchTerm.toLowerCase()));
-    
+      (task.description &&
+        task.description.toLowerCase().includes(searchTerm.toLowerCase()));
+
     const matchesStatus = !statusFilter || task.status === statusFilter;
     const matchesPriority = !priorityFilter || task.priority === priorityFilter;
-    
+
     return matchesSearch && matchesStatus && matchesPriority;
   });
 
@@ -92,23 +102,31 @@ const TaskManagement = () => {
   };
 
   const clearFilters = () => {
-    setSearchTerm('');
-    setStatusFilter('');
-    setPriorityFilter('');
+    setSearchTerm("");
+    setStatusFilter("");
+    setPriorityFilter("");
   };
 
   return (
     <VStack spacing={6} align="stretch">
-      {/* Header con título y botón crear */}
-      <Box display="flex" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={4}>
-        <Text fontSize="2xl" fontWeight="bold" color={titleColor}>Gestión de Tareas</Text>
+      {/* Header */}
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        flexWrap="wrap"
+        gap={4}
+      >
+        <Text fontSize="2xl" fontWeight="bold" color={titleColor}>
+          Gestión de Tareas
+        </Text>
         <Button colorScheme="blue" onClick={handleCreateTask}>
-          <FiPlus style={{ marginRight: '8px' }} />
+          <FiPlus style={{ marginRight: "8px" }} />
           Nueva Tarea
         </Button>
       </Box>
 
-      {/* Filtros y búsqueda */}
+      {/* Filters */}
       <Box bg={cardBg} p={4} borderRadius="md" boxShadow="sm">
         <VStack spacing={4}>
           <HStack spacing={4} width="100%" flexWrap="wrap">
@@ -119,34 +137,41 @@ const TaskManagement = () => {
                   placeholder="Buscar tareas..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  bg="gray.100"
+                  border={0}
+                  
                 />
               </HStack>
             </Box>
-            
+
             <Select
               placeholder="Filtrar por estado"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as TaskStatus)}
               maxW="200px"
+              bg="gray.100"
             >
               <option value={TaskStatus.PENDING}>Pendiente</option>
               <option value={TaskStatus.IN_PROGRESS}>En Progreso</option>
               <option value={TaskStatus.COMPLETED}>Completada</option>
               <option value={TaskStatus.CANCELLED}>Cancelada</option>
             </Select>
-            
+
             <Select
               placeholder="Filtrar por prioridad"
               value={priorityFilter}
-              onChange={(e) => setPriorityFilter(e.target.value as TaskPriority)}
+              onChange={(e) =>
+                setPriorityFilter(e.target.value as TaskPriority)
+              }
               maxW="200px"
+              bg="gray.100"
             >
               <option value={TaskPriority.LOW}>Baja</option>
               <option value={TaskPriority.MEDIUM}>Media</option>
               <option value={TaskPriority.HIGH}>Alta</option>
               <option value={TaskPriority.URGENT}>Urgente</option>
             </Select>
-            
+
             {(searchTerm || statusFilter || priorityFilter) && (
               <Button size="sm" variant="outline" onClick={clearFilters}>
                 Limpiar filtros
@@ -156,7 +181,7 @@ const TaskManagement = () => {
         </VStack>
       </Box>
 
-      {/* Mostrar errores */}
+      {/* Error */}
       {error && (
         <Alert status="error">
           <AlertIcon />
@@ -167,14 +192,14 @@ const TaskManagement = () => {
         </Alert>
       )}
 
-      {/* Loading state */}
+      {/* Loading */}
       {loading && (
         <Box display="flex" justifyContent="center" py={8}>
           <Spinner size="lg" color="blue.500" />
         </Box>
       )}
 
-      {/* Lista de tareas */}
+      {/* Task List */}
       {!loading && (
         <VStack spacing={4}>
           {filteredTasks.length === 0 ? (
@@ -187,9 +212,9 @@ const TaskManagement = () => {
               textAlign="center"
             >
               <Text color={noTasksTextColor}>
-                {tasks.length === 0 
-                  ? 'No tienes tareas aún. ¡Crea tu primera tarea!' 
-                  : 'No se encontraron tareas con los filtros aplicados.'}
+                {tasks.length === 0
+                  ? "No tienes tareas aún. ¡Crea tu primera tarea!"
+                  : "No se encontraron tareas con los filtros aplicados."}
               </Text>
             </Box>
           ) : (
@@ -206,7 +231,7 @@ const TaskManagement = () => {
         </VStack>
       )}
 
-      {/* Modal para crear/editar tareas */}
+      {/* Modal */}
       <TaskModal
         isOpen={isModalOpen}
         onClose={onModalClose}
@@ -219,82 +244,113 @@ const TaskManagement = () => {
 };
 
 const SectionContent = ({ section, onSectionChange }: SectionContentProps) => {
+  const sectionBg = useColorModeValue("white", "gray.800");
+  const sectionText = useColorModeValue("gray.600", "gray.300");
+  const cardBg = useColorModeValue("white", "gray.700");
+  const cardText = useColorModeValue("gray.700", "gray.200");
+
   const getSectionTitle = (section: string) => {
     switch (section) {
-      case 'login': return 'Login';
-      case 'register': return 'Registro';
-      case 'dashboard': return 'Dashboard';
-      case 'tasks': return 'Gestión de Tareas / Inventario';
-      case 'components': return 'Componentes';
-      case 'api': return 'API - Conexión con Spring Boot';
-      default: return 'Bienvenido a tu App de Gestión';
+      case "login":
+        return "Login";
+      case "register":
+        return "Registro";
+      case "dashboard":
+        return "Dashboard";
+      case "tasks":
+        return "Gestión de Tareas / Inventario";
+      case "components":
+        return "Componentes";
+      case "api":
+        return "API - Conexión con Spring Boot";
+      default:
+        return "Bienvenido a tu App de Gestión";
     }
   };
 
   const renderContent = () => {
     switch (section) {
-      case 'login':
+      case "login":
         return <LoginForm onSectionChange={onSectionChange} />;
 
-      case 'register':
+      case "register":
         return <RegisterForm onSectionChange={onSectionChange} />;
 
-      case 'dashboard':
+      case "dashboard":
         return <DashboardContent />;
 
-      case 'tasks':
+      case "tasks":
         return (
-          <ProtectedRoute 
-            requireAuth={true} 
-            onRedirectToLogin={() => onSectionChange('login')}
+          <ProtectedRoute
+            requireAuth={true}
+            onRedirectToLogin={() => onSectionChange("login")}
           >
             <TaskManagement />
           </ProtectedRoute>
         );
 
-      case 'components':
+      case "components":
         return (
           <VStack spacing={6} align="stretch">
-            <Text fontSize="2xl" fontWeight="bold">Componentes del Sistema</Text>
+            <Text fontSize="2xl" fontWeight="bold" color={cardText}>
+              Componentes del Sistema
+            </Text>
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
-              <Box bg="white" p={6} borderRadius="md" boxShadow="lg">
-                <Text fontSize="lg" fontWeight="semibold" mb={3}>Componentes UI</Text>
+              <Box bg={cardBg} p={6} borderRadius="md" boxShadow="lg">
+                <Text
+                  fontSize="lg"
+                  fontWeight="semibold"
+                  mb={3}
+                  color={cardText}
+                >
+                  Componentes UI
+                </Text>
                 <VStack align="start" spacing={2}>
-                  <Text>• Sidebar Navigation</Text>
-                  <Text>• Header Bar</Text>
-                  <Text>• Card Components</Text>
-                  <Text>• Form Controls</Text>
-                  <Text>• Button Variants</Text>
+                  <Text color={sectionText}>• Sidebar Navigation</Text>
+                  <Text color={sectionText}>• Header Bar</Text>
+                  <Text color={sectionText}>• Card Components</Text>
+                  <Text color={sectionText}>• Form Controls</Text>
+                  <Text color={sectionText}>• Button Variants</Text>
                 </VStack>
               </Box>
-              <Box bg="white" p={6} borderRadius="md" boxShadow="lg">
-                <Text fontSize="lg" fontWeight="semibold" mb={3}>Funcionalidades</Text>
+              <Box bg={cardBg} p={6} borderRadius="md" boxShadow="lg">
+                <Text
+                  fontSize="lg"
+                  fontWeight="semibold"
+                  mb={3}
+                  color={cardText}
+                >
+                  Funcionalidades
+                </Text>
                 <VStack align="start" spacing={2}>
-                  <Text>• Autenticación</Text>
-                  <Text>• Gestión de Datos</Text>
-                  <Text>• API Integration</Text>
-                  <Text>• Theme Toggle</Text>
-                  <Text>• Responsive Design</Text>
+                  <Text color={sectionText}>• Autenticación</Text>
+                  <Text color={sectionText}>• Gestión de Datos</Text>
+                  <Text color={sectionText}>• API Integration</Text>
+                  <Text color={sectionText}>• Theme Toggle</Text>
+                  <Text color={sectionText}>• Responsive Design</Text>
                 </VStack>
               </Box>
             </SimpleGrid>
           </VStack>
         );
 
-      case 'api':
+      case "api":
         return <ApiTestComponent />;
 
-      case 'debug':
+      case "debug":
         return <ApiDebug />;
 
       default:
         return (
-          <Box bg="white" p={8} borderRadius="md" boxShadow="lg">
+          <Box bg={sectionBg} p={8} borderRadius="md" boxShadow="lg">
             <VStack spacing={4}>
-              <Text fontSize="2xl" fontWeight="bold">Bienvenido a tu App de Gestión</Text>
-              <Text textAlign="center" color="gray.600">
-                Esta es una aplicación de gestión personal/empresarial construida con Spring Boot y Next.js.
-                Utiliza el menú lateral para navegar entre las diferentes secciones.
+              <Text fontSize="2xl" fontWeight="bold" color={cardText}>
+                Bienvenido a tu App de Gestión
+              </Text>
+              <Text textAlign="center" color={sectionText}>
+                Esta es una aplicación de gestión personal/empresarial
+                construida con Spring Boot y Next.js. Utiliza el menú lateral
+                para navegar entre las diferentes secciones.
               </Text>
             </VStack>
           </Box>
@@ -302,11 +358,7 @@ const SectionContent = ({ section, onSectionChange }: SectionContentProps) => {
     }
   };
 
-  return (
-    <Box>
-      {renderContent()}
-    </Box>
-  );
+  return <Box>{renderContent()}</Box>;
 };
 
 export default SectionContent;
