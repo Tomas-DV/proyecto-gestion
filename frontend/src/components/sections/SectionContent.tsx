@@ -106,6 +106,7 @@ const TaskManagement = () => {
     setStatusFilter("");
     setPriorityFilter("");
   };
+const iconColor = useColorModeValue("gray.800", "white"); // dark mode -> white
 
   return (
     <VStack spacing={6} align="stretch">
@@ -132,7 +133,7 @@ const TaskManagement = () => {
           <HStack spacing={4} width="100%" flexWrap="wrap">
             <Box flex={1} minW="250px">
               <HStack>
-                <FiSearch />
+                <FiSearch color={iconColor}/>
                 <Input
                   placeholder="Buscar tareas..."
                   value={searchTerm}
