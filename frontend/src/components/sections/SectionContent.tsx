@@ -13,6 +13,7 @@ import {
   Alert,
   AlertIcon,
   useDisclosure,
+  Icon,
 } from "@chakra-ui/react";
 import { useColorModeValue } from "@/components/ui/color-mode";
 import { FiPlus, FiSearch } from "react-icons/fi";
@@ -106,7 +107,6 @@ const TaskManagement = () => {
     setStatusFilter("");
     setPriorityFilter("");
   };
-const iconColor = useColorModeValue("gray.800", "white"); // dark mode -> white
 
   return (
     <VStack spacing={6} align="stretch">
@@ -133,14 +133,19 @@ const iconColor = useColorModeValue("gray.800", "white"); // dark mode -> white
           <HStack spacing={4} width="100%" flexWrap="wrap">
             <Box flex={1} minW="250px">
               <HStack>
-                <FiSearch color={iconColor}/>
+                <Icon
+                  as={FiSearch}
+                  color={useColorModeValue("gray.700", "white")}
+                  w={6}
+                  h={6}
+                />
+
                 <Input
                   placeholder="Buscar tareas..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   bg="gray.100"
                   border={0}
-                  
                 />
               </HStack>
             </Box>
