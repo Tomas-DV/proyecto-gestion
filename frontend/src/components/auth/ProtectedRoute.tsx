@@ -4,7 +4,7 @@ import React from 'react';
 import { Box, Spinner, Text, VStack, Button } from '@chakra-ui/react';
 import { FiLock } from 'react-icons/fi';
 import { useAuth } from '@/contexts/AuthContext';
-
+import { useColorModeValue } from "@/components/ui/color-mode";
 interface ProtectedRouteProps {
   children: React.ReactNode;
   requireAuth?: boolean;
@@ -42,13 +42,14 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   // Check if user is authenticated
   if (!isAuthenticated || !user) {
     return (
-      <Box bg="white" p={8} borderRadius="md" boxShadow="lg" textAlign="center">
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      <Box bg={useColorModeValue("blue.50","blue.900")} p={8} borderRadius="md" boxShadow="lg" textAlign="center">
         <VStack spacing={4}>
-          <FiLock size={48} color="#E2E8F0" />
-          <Text fontSize="xl" fontWeight="semibold">
-            Acceso Restringido
+          
+          <Text color={useColorModeValue("blue.700","blue.200")} fontSize="xl" fontWeight="semibold">
+           🔐 Acceso Restringido
           </Text>
-          <Text color="gray.600">
+          <Text color={useColorModeValue("blue.700","blue.200")}>
             Necesitas iniciar sesión para acceder a esta sección.
           </Text>
           {onRedirectToLogin && (

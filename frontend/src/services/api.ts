@@ -24,7 +24,7 @@ export interface ApiError {
 }
 
 class ApiService {
-  private baseURL = 'http://localhost:8080/api';
+  private baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api';
 
   public async request<T>(
     endpoint: string,

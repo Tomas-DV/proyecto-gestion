@@ -39,3 +39,35 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Node modules and build outputs
+node_modules
+.next
+out
+dist
+
+# Logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Env files (we’ll pass them with docker-compose)
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# IDE / editor configs
+.idea/
+.vscode/
+*.swp
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore

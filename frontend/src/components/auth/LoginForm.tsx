@@ -116,7 +116,7 @@ const LoginForm = ({ onSectionChange }: LoginFormProps) => {
     <Box bg={cardBg} maxW="400px" mx="auto" p={6} borderRadius="md" boxShadow="lg">
       <form onSubmit={handleSubmit}>
         <VStack spacing={4}>
-          <Text fontSize="2xl" fontWeight="bold">Iniciar Sesión</Text>
+          <Text fontSize="2xl" color={useColorModeValue("black","white")} fontWeight="bold">Iniciar Sesión</Text>
           
           {apiError && (
             <Alert status="error" borderRadius="md">
@@ -126,8 +126,9 @@ const LoginForm = ({ onSectionChange }: LoginFormProps) => {
           )}
           
           <FormControl isInvalid={!!errors.username}>
-            <FormLabel fontSize="sm" fontWeight="medium">Username</FormLabel>
+            <FormLabel color={useColorModeValue("black","white")} fontSize="sm" fontWeight="medium">Usuario</FormLabel>
             <Input
+              color={useColorModeValue("black","white")}
               name="username"
               type="text"
               value={formData.username}
@@ -139,8 +140,9 @@ const LoginForm = ({ onSectionChange }: LoginFormProps) => {
           </FormControl>
           
           <FormControl isInvalid={!!errors.password}>
-            <FormLabel fontSize="sm" fontWeight="medium">Contraseña</FormLabel>
+            <FormLabel color={useColorModeValue("black","white")} fontSize="sm" fontWeight="medium">Contraseña</FormLabel>
             <Input
+              color={useColorModeValue("black","white")}
               name="password"
               type="password"
               value={formData.password}
@@ -161,7 +163,7 @@ const LoginForm = ({ onSectionChange }: LoginFormProps) => {
             Ingresar
           </Button>
           
-          <Text fontSize="sm" textAlign="center">
+          <Text color={useColorModeValue("black","white")} fontSize="sm" textAlign="center">
             ¿No tienes cuenta?{' '}
             <Button
               variant="link"
