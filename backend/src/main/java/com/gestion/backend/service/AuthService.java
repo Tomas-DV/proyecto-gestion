@@ -58,7 +58,7 @@ public class AuthService {
         );
         
         var user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid username or password"));
+                .orElseThrow(() -> new IllegalArgumentException("Usuario o contraseña invalidos"));
         
         var jwtToken = jwtService.generateToken(user);
         

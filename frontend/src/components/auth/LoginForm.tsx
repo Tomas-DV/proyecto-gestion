@@ -61,11 +61,11 @@ const LoginForm = ({ onSectionChange }: LoginFormProps) => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.username.trim()) {
-      newErrors.username = 'Username is required';
+      newErrors.username = 'El usuario es obligatorio';
     }
 
     if (!formData.password) {
-      newErrors.password = 'Password is required';
+      newErrors.password = 'La contraseña es obligatoria';
     }
 
     setErrors(newErrors);
@@ -86,8 +86,8 @@ const LoginForm = ({ onSectionChange }: LoginFormProps) => {
       await login(formData);
       
       toast({
-        title: 'Login successful!',
-        description: 'Welcome back!',
+        title: '¡Inicio de sesión exitoso!',
+        description: '¡Bienvenido de vuelta!',
         status: 'success',
         duration: 3000,
         isClosable: true,
@@ -97,11 +97,11 @@ const LoginForm = ({ onSectionChange }: LoginFormProps) => {
       onSectionChange('dashboard');
       
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Login failed';
+      const errorMessage = error instanceof Error ? error.message : 'Error al iniciar sesión';
       setApiError(errorMessage);
       
       toast({
-        title: 'Login failed',
+        title: 'Error al iniciar sesión',
         description: errorMessage,
         status: 'error',
         duration: 5000,
@@ -133,7 +133,7 @@ const LoginForm = ({ onSectionChange }: LoginFormProps) => {
               type="text"
               value={formData.username}
               onChange={handleChange}
-              placeholder="Enter your username"
+              placeholder="Ingresa tu usuario"
               disabled={isSubmitting}
             />
             <FormErrorMessage>{errors.username}</FormErrorMessage>
@@ -158,7 +158,7 @@ const LoginForm = ({ onSectionChange }: LoginFormProps) => {
             colorScheme="blue"
             w="100%"
             isLoading={isSubmitting}
-            loadingText="Signing in..."
+            loadingText="Iniciando sesión..."
           >
             Ingresar
           </Button>

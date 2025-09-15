@@ -63,27 +63,27 @@ const RegisterForm = ({ onSectionChange }: RegisterFormProps) => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.username.trim()) {
-      newErrors.username = "Username is required";
+      newErrors.username = "El nombre de usuario es obligatorio";
     } else if (formData.username.length < 3) {
-      newErrors.username = "Username must be at least 3 characters";
+      newErrors.username = "El usuario debe tener al menos 3 caracteres";
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = "El email es obligatorio";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid";
+      newErrors.email = "El email no es válido";
     }
 
     if (!formData.password) {
-      newErrors.password = "Password is required";
+      newErrors.password = "La contraseña es obligatoria";
     } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
+      newErrors.password = "La contraseña debe tener al menos 6 caracteres";
     }
 
     if (!formData.confirmPassword) {
-      newErrors.confirmPassword = "Password confirmation is required";
+      newErrors.confirmPassword = "La confirmación de contraseña es obligatoria";
     } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
+      newErrors.confirmPassword = "Las contraseñas no coinciden";
     }
 
     setErrors(newErrors);
@@ -104,8 +104,8 @@ const RegisterForm = ({ onSectionChange }: RegisterFormProps) => {
       await register(formData);
 
       toast({
-        title: "Registration successful!",
-        description: "Welcome to the platform!",
+        title: "¡Registro exitoso!",
+        description: "¡Bienvenido a la plataforma!",
         status: "success",
         duration: 3000,
         isClosable: true,
@@ -115,11 +115,11 @@ const RegisterForm = ({ onSectionChange }: RegisterFormProps) => {
       onSectionChange("dashboard");
     } catch (error) {
       const errorMessage =
-        error instanceof Error ? error.message : "Registration failed";
+        error instanceof Error ? error.message : "Error en el registro";
       setApiError(errorMessage);
 
       toast({
-        title: "Registration failed",
+        title: "Error en el registro",
         description: errorMessage,
         status: "error",
         duration: 5000,
@@ -162,7 +162,7 @@ const RegisterForm = ({ onSectionChange }: RegisterFormProps) => {
               fontSize="sm"
               fontWeight="medium"
             >
-              Username
+              Usuario
             </FormLabel>
             <Input
               color={useColorModeValue("black", "white")}
@@ -170,7 +170,7 @@ const RegisterForm = ({ onSectionChange }: RegisterFormProps) => {
               type="text"
               value={formData.username}
               onChange={handleChange}
-              placeholder="Choose a username"
+              placeholder="Elige un nombre de usuario"
               disabled={isSubmitting}
             />
             <FormErrorMessage>{errors.username}</FormErrorMessage>
@@ -233,7 +233,7 @@ const RegisterForm = ({ onSectionChange }: RegisterFormProps) => {
             colorScheme="green"
             w="100%"
             isLoading={isSubmitting}
-            loadingText="Creating account..."
+            loadingText="Creando cuenta..."
           >
             Registrarse
           </Button>

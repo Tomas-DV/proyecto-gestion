@@ -36,7 +36,7 @@ const Header = ({ currentSection, onSectionChange }: HeaderProps) => {
   const handleLogout = () => {
     logout();
     toast({
-      title: 'Logged out successfully',
+      title: 'Sesión cerrada exitosamente',
       status: 'info',
       duration: 3000,
       isClosable: true,

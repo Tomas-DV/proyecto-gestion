@@ -35,7 +35,7 @@ public class AuthController {
             AuthResponse response = authService.authenticate(request);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new ErrorResponse("Invalid username or password"));
+            return ResponseEntity.badRequest().body(new ErrorResponse("Usuario o contraseña invalidos"));
         }
     }
     

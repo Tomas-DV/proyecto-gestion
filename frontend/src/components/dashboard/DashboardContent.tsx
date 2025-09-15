@@ -66,7 +66,7 @@ const DashboardContent = () => {
             <Text fontSize="lg" fontWeight="semibold" mb={3} color={cardTitleColor}>Información de Usuario</Text>
             <VStack align="start" spacing={2}>
               <HStack>
-                <Text fontWeight="medium" color={cardTitleColor}>Username:</Text>
+                <Text fontWeight="medium" color={cardTitleColor}>Usuario:</Text>
                 <Text color={primaryTextColor}>{user.username}</Text>
               </HStack>
               <HStack>
